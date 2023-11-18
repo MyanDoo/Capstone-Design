@@ -27,14 +27,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
         // 서버로부터 처리된 데이터 수신
-        socket.on('generate_frames', function(data) {s
+        socket.on('generate_frames', function(data) {
             // 서버로부터 받은 데이터 처리
             const imageElement = document.getElementById('processed-image');
             const imageData = data.result; // 이미지 데이터
-            // 여기에서 받은 데이터를 사용하여 클라이언트 측에서의 추가 작업 수행 가능
-            console.log('Received data from server:', data);
-            // 이미지 데이터를 받아서 이미지 요소에 삽입
-            imageElement.src = 'data:image/jpeg;base64,' + imageData;
+
+            // 이미지 데이터를 받아와서 처리
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                context.drawImage(img, 0, 0);
+        
+                const frameData = canvas.toDataURL('image/jpeg'); // Mediapipe로 처리하기 위해 이미지 데이터로 변환
+
+                // 여기에서 frameData를 서버로 전송하여 Mediapipe에서 처리하도록 하세요
+                socket.emit('frameData', { image: frameData }); // frameData를 서버로 전송
+            };
+            img.src = 'data:image/jpeg;base64,' + imageData;
         });
     } else {
         console.error('웹캠이 지원되지 않습니다.');
