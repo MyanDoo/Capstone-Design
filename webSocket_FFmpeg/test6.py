@@ -54,8 +54,10 @@ def calculate_angle(a,b,c):
         
     return angle
 
+frame_data_list = []
+
 def generate_frames(image_data):
-    global counter, left_stage, right_stage  # counter와 각 팔의 stage를 global 변수로 사용
+    global counter, left_stage, right_stage, frame_data_list  # counter와 각 팔의 stage를 global 변수로 사용
 
     process = (
         ffmpeg.input('pipe:', format='rawvideo', pix_fmt='rgb24', s='640x480')
@@ -130,8 +132,12 @@ def generate_frames(image_data):
                         counter += 1
                         print("Counter:", counter)
 
+                #Image data encoding
                 ret, buffer = cv2.imencode('.jpg', annotated_image)
                 frame_bytes = base64.b64encode(buffer).decode('utf-8')
+
+                #Add frame data to the list
+                frame_data_list.append(frame_bytes)
 
                 # 클라이언트로 프레임을 전송합니다.
                 socketio.emit('frame', {'image': frame_bytes})
@@ -192,11 +198,13 @@ def handle_frame_data(data):
     # 클라이언트로부터 받은 데이터 처리
     image_data = data['image']  # 클라이언트로부터 받은 이미지 데이터
 
-    # 이미지 데이터 처리 (예: mediapipe를 사용한 분석)
-    processed_data = generate_frames(image_data)  # 이미지 처리 함수
-
-    # 처리된 데이터를 클라이언트로 전송
-    emit('generate_frames', {'result': processed_data})
+    # 이미지 데이터 처리 후, 클라이언트로 전송
+    if frame_data_list:
+        # 이미지 데이터 처리 (예: mediapipe를 사용한 분석)
+        processed_data = frame_data_list.pop(0)
+        #processed_data = generate_frames(image_data)  # 이미지 처리 함수
+        # 처리된 데이터를 클라이언트로 전송
+        emit('generate_frames', {'result': processed_data})  
 
 @app.route('/video_feed')
 def video_feed():
