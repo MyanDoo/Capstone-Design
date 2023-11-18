@@ -200,7 +200,7 @@ def handle_frame_data(data):
 
     # 이미지 데이터 처리 후, 클라이언트로 전송
     if frame_data_list:
-        # 이미지 데이터 처리 (예: mediapipe를 사용한 분석)
+        # 이미지 데이터 처리 (mediapipe를 사용한 분석)
         processed_data = frame_data_list.pop(0)
         #processed_data = generate_frames(image_data)  # 이미지 처리 함수
         # 처리된 데이터를 클라이언트로 전송
