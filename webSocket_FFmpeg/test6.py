@@ -39,8 +39,6 @@ left_stage = None  # 왼쪽 팔의 stage 변수 초기화
 right_stage = None  # 오른쪽 팔의 stage 변수 초기화
 landmarks = None  # landmarks 변수를 초기화
 
-
-
 def calculate_angle(a,b,c):
     a = np.array(a) # First
     b = np.array(b) # Mid
@@ -53,6 +51,13 @@ def calculate_angle(a,b,c):
         angle = 360-angle
         
     return angle
+
+def preprocess_image(encoded_image):
+    decoded_data = base64.b64decode(encoded_image)
+    np_data = np.frombuffer(decoded_data, np.uint8)
+    image = cv2.imdecode(np_data, cv2.IMREAD_COLOR)
+
+    return image
 
 frame_data_list = []
 
@@ -87,6 +92,8 @@ def generate_frames(image_data):
             # Extract landmarks
             try:
                 landmarks = results.pose_landmarks.landmark
+                # 이미지 데이터를 전처리하여 mediapipe가 처리할 수 있는 형태로 변환
+                processed_image = preprocess_image(frame_bytes)
             
                 # Get coordinates for the left arm
                 left_shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x, landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
@@ -103,10 +110,10 @@ def generate_frames(image_data):
                 right_angle = calculate_angle(right_shoulder, right_elbow, right_wrist)
             
                 # Visualize angles
-                cv2.putText(image, f"Left Angle: {left_angle}", 
+                cv2.putText(processed_image, f"Left Angle: {left_angle}", 
                         tuple(np.multiply(left_elbow, [860, 680]).astype(int)), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-                cv2.putText(image, f"Right Angle: {right_angle}", 
+                cv2.putText(processed_image, f"Right Angle: {right_angle}", 
                         tuple(np.multiply(right_elbow, [860, 680]).astype(int)), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
 
@@ -132,13 +139,16 @@ def generate_frames(image_data):
                         counter += 1
                         print("Counter:", counter)
 
+                
                 #Image data encoding
                 ret, buffer = cv2.imencode('.jpg', annotated_image)
                 frame_bytes = base64.b64encode(buffer).decode('utf-8')
 
                 #Add frame data to the list
-                frame_data_list.append(frame_bytes)
-
+                #frame_data_list.append(frame_bytes)
+                # frame_data_list에 이미지 데이터 추가
+                frame_data_list.append(processed_image)
+                
                 # 클라이언트로 프레임을 전송합니다.
                 socketio.emit('frame', {'image': frame_bytes})
 
