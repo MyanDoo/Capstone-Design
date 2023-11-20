@@ -52,6 +52,7 @@ def calculate_angle(a,b,c):
         
     return angle
 
+#preprocess_image로 mediaPipe에서 사용가능한 형태로 변경해주기
 def preprocess_image(encoded_image):
     decoded_data = base64.b64decode(encoded_image)
     np_data = np.frombuffer(decoded_data, np.uint8)
