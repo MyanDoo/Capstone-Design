@@ -109,11 +109,12 @@ def generate_frames():
                         #right_color = (66, 135, 245)  # 원하는 다른 색상으로 변경, 파란색
                         print("Counter:", right_counter)
                 if 60 < right_angle and right_angle < 150:
-                    dott_color = (66, 0, 245)
-                    line_color = (66, 135, 245)
-
-            except:
-                pass
+                    dott_color = (66, 0, 245)  # 빨간색
+                    line_color = (66, 135, 245)  # 파란색
+            except AttributeError:
+                print("No pose landmarks detected.")
+            except Exception as e:
+                print(f"An error occurred: {e}")
 
             # Image 좌우 반전
             image = cv2.flip(image, 1)
@@ -147,20 +148,24 @@ def generate_frames():
             # Render detections
             # 관절 좌표값을 좌우 반전하여 그리기
             flipped_landmarks = results.pose_landmarks
-            for landmark in flipped_landmarks.landmark:
-                landmark.x = 1.0 - landmark.x
+
+            if flipped_landmarks is not None:
+                for landmark in flipped_landmarks.landmark:
+                    landmark.x = 1.0 - landmark.x  # 좌우 반전
 
             mp_drawing.draw_landmarks(image, flipped_landmarks, mp_pose.POSE_CONNECTIONS,
                           mp_drawing.DrawingSpec(color=dott_color, thickness=2, circle_radius=2), 
                           mp_drawing.DrawingSpec(color=line_color, thickness=2, circle_radius=2) 
-                          )   
-
+                          )
+            
             cv2.imshow('Mediapipe Feed', image)
 
             _, buffer = cv2.imencode('.jpg', image)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+            
+            
 
     cap.release()
 
