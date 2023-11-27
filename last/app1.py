@@ -78,6 +78,10 @@ def generate_frames():
                         text_pos_right, 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
                 
+                # 선의 색상을 나타내는 변수 초기화
+                left_color = (245, 117, 66)  # 초기 선의 색상 설정, 주황색
+                right_color = (245, 117, 66)  # 초기 선의 색상 설정, 주황색
+
                 # Curl counter logic for left arm
                 if left_angle > 160:
                     left_stage = "left_down"
@@ -87,6 +91,7 @@ def generate_frames():
                         left_stage = "left_up"
                         print("Left Up - Positive")
                         left_counter += 1
+                        left_color = (66, 135, 245)  # 원하는 다른 색상으로 변경, 파란색
                         print("Counter:", left_counter)
 
                 # Curl counter logic for right arm
@@ -98,7 +103,11 @@ def generate_frames():
                         right_stage = "right_up"
                         print("Right Up - Positive")
                         right_counter += 1
+                        #right_color = (66, 135, 245)  # 원하는 다른 색상으로 변경, 파란색
                         print("Counter:", right_counter)
+                if 40 < right_angle and right_angle < 160:
+                    print("Counter:", right_counter)
+
             except:
                 pass
 
@@ -110,25 +119,25 @@ def generate_frames():
             cv2.rectangle(image, (0,0), (600,73), (245,117,16), -1)
             
             # Rep data
-            cv2.putText(image, 'REPS', (15,12), 
+            cv2.putText(image, 'REPS', (30,12), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 1, cv2.LINE_AA)
             # Count left
             cv2.putText(image, str(left_counter), 
-                        (5,60), 
+                        (5,40), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
             # Count right
-            cv2.putText(image, str(right_counter), (240, 60), 
+            cv2.putText(image, str(right_counter), (240, 40), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
             
             
             # Stage data
-            cv2.putText(image, 'STAGE', (image.shape[1] - 65, 12), 
+            cv2.putText(image, 'STAGE', (image.shape[1] - 120, 12), 
                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
             cv2.putText(image, left_stage, 
-                (image.shape[1] - 580, 60), 
+                (image.shape[1] - 580, 40), 
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
             cv2.putText(image, right_stage, 
-                (image.shape[1] - 340, 60), 
+                (image.shape[1] - 340, 40), 
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
             
             # Render detections
@@ -138,8 +147,8 @@ def generate_frames():
                 landmark.x = 1.0 - landmark.x
 
             mp_drawing.draw_landmarks(image, flipped_landmarks, mp_pose.POSE_CONNECTIONS,
-                          mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2), 
-                          mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2) 
+                          mp_drawing.DrawingSpec(color=left_color, thickness=2, circle_radius=2), 
+                          mp_drawing.DrawingSpec(color=right_color, thickness=2, circle_radius=2) 
                           )   
 
             cv2.imshow('Mediapipe Feed', image)
