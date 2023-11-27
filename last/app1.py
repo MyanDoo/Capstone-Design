@@ -13,7 +13,9 @@ def generate_frames():
     cap = cv2.VideoCapture(0)
     mp_drawing = mp.solutions.drawing_utils
     mp_pose = mp.solutions.pose
-    counter = 0 
+    counter = 0
+    left_counter = 0
+    right_counter = 0 
     left_stage = None  # 왼쪽 팔의 stage 변수 초기화
     right_stage = None  # 오른쪽 팔의 stage 변수 초기화
 
@@ -80,8 +82,8 @@ def generate_frames():
                     if left_stage == 'left_down':
                         left_stage = "left_up"
                         print("Left Up - Positive")
-                        counter += 1
-                        print("Counter:", counter)
+                        left_counter += 1
+                        print("Counter:", left_counter)
 
                 # Curl counter logic for right arm
                 if right_angle > 160:
@@ -91,8 +93,8 @@ def generate_frames():
                     if right_stage == 'right_down':
                         right_stage = "right_up"
                         print("Right Up - Positive")
-                        counter += 1
-                        print("Counter:", counter)
+                        right_counter += 1
+                        print("Counter:", right_counter)
             except:
                 pass
             
@@ -103,8 +105,12 @@ def generate_frames():
             # Rep data
             cv2.putText(image, 'REPS', (15,12), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 1, cv2.LINE_AA)
-            cv2.putText(image, str(counter), 
+            # Count left
+            cv2.putText(image, str(left_counter), 
                         (5,60), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
+            # Count right
+            cv2.putText(image, str(right_counter), (300, 60), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
             
             # Stage data
