@@ -79,8 +79,8 @@ def generate_frames():
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
                 
                 # 선의 색상을 나타내는 변수 초기화
-                left_color = (245, 117, 66)  # 초기 선의 색상 설정, 주황색
-                right_color = (245, 117, 66)  # 초기 선의 색상 설정, 주황색
+                dott_color = (245, 117, 66)  # 초기 점의 색상 설정, 주황색
+                line_color = (245, 117, 66)  # 초기 선의 색상 설정, 주황색
 
                 # Curl counter logic for left arm
                 if left_angle > 160:
@@ -93,6 +93,9 @@ def generate_frames():
                         left_counter += 1
                         left_color = (66, 135, 245)  # 원하는 다른 색상으로 변경, 파란색
                         print("Counter:", left_counter)
+                if 60 < left_angle and left_angle < 150:
+                    dott_color = (66, 0, 245)  # 빨간색
+                    line_color = (66, 135, 245)  # 파란색
 
                 # Curl counter logic for right arm
                 if right_angle > 160:
@@ -105,8 +108,9 @@ def generate_frames():
                         right_counter += 1
                         #right_color = (66, 135, 245)  # 원하는 다른 색상으로 변경, 파란색
                         print("Counter:", right_counter)
-                if 40 < right_angle and right_angle < 160:
-                    print("Counter:", right_counter)
+                if 60 < right_angle and right_angle < 150:
+                    dott_color = (66, 0, 245)
+                    line_color = (66, 135, 245)
 
             except:
                 pass
@@ -147,8 +151,8 @@ def generate_frames():
                 landmark.x = 1.0 - landmark.x
 
             mp_drawing.draw_landmarks(image, flipped_landmarks, mp_pose.POSE_CONNECTIONS,
-                          mp_drawing.DrawingSpec(color=left_color, thickness=2, circle_radius=2), 
-                          mp_drawing.DrawingSpec(color=right_color, thickness=2, circle_radius=2) 
+                          mp_drawing.DrawingSpec(color=dott_color, thickness=2, circle_radius=2), 
+                          mp_drawing.DrawingSpec(color=line_color, thickness=2, circle_radius=2) 
                           )   
 
             cv2.imshow('Mediapipe Feed', image)
