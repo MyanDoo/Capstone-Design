@@ -67,11 +67,15 @@ def generate_frames():
                 right_angle = calculate_angle(right_shoulder, right_elbow, right_wrist)
                 
                 # Visualize angles
+                # 좌우 반전되지 않도록 텍스트 좌표 계산
+                text_pos_left = tuple(np.multiply(left_elbow, [860, 680]).astype(int))
+                text_pos_right = tuple(np.multiply(right_elbow, [860, 680]).astype(int))
+
                 cv2.putText(image, f"Left Angle: {left_angle}", 
-                        tuple(np.multiply(left_elbow, [860, 680]).astype(int)), 
+                        text_pos_left, 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
                 cv2.putText(image, f"Right Angle: {right_angle}", 
-                        tuple(np.multiply(right_elbow, [860, 680]).astype(int)), 
+                        text_pos_right, 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
                 
                 # Curl counter logic for left arm
@@ -97,7 +101,10 @@ def generate_frames():
                         print("Counter:", right_counter)
             except:
                 pass
-            
+
+            # Image 좌우 반전
+            image = cv2.flip(image, 1)
+
             # Render curl counter
             # Setup status box
             cv2.rectangle(image, (0,0), (600,73), (245,117,16), -1)
@@ -110,28 +117,32 @@ def generate_frames():
                         (5,60), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
             # Count right
-            cv2.putText(image, str(right_counter), (300, 60), 
+            cv2.putText(image, str(right_counter), (240, 60), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
             
+            
             # Stage data
-            cv2.putText(image, 'STAGE', (65,12), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 1, cv2.LINE_AA)
+            cv2.putText(image, 'STAGE', (image.shape[1] - 65, 12), 
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
             cv2.putText(image, left_stage, 
-                    (60,60), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
+                (image.shape[1] - 580, 60), 
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
             cv2.putText(image, right_stage, 
-                    (300,60), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
+                (image.shape[1] - 340, 60), 
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
             
             # Render detections
-            mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS,
-                                    mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2), 
-                                    mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2) 
-                                    )               
-            
+            # 관절 좌표값을 좌우 반전하여 그리기
+            flipped_landmarks = results.pose_landmarks
+            for landmark in flipped_landmarks.landmark:
+                landmark.x = 1.0 - landmark.x
+
+            mp_drawing.draw_landmarks(image, flipped_landmarks, mp_pose.POSE_CONNECTIONS,
+                          mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2), 
+                          mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2) 
+                          )   
+
             cv2.imshow('Mediapipe Feed', image)
-
-
 
             _, buffer = cv2.imencode('.jpg', image)
             frame = buffer.tobytes()
