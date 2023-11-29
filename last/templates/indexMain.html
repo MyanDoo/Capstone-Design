@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Fixy-Arm</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styleSub1.css') }}">
+        <script src="{{ url_for('static', filename='actSub1.js') }}"></script>
+    </head>
+
+    <body>
+        <div class="display">
+            <div class="cam">
+                <video id="webcam-feed" width="640" height="480" autoplay></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+                <!--캠화면 -->
+                <img src="{{ url_for('video_feed') }}" alt="Pose Detection" id="captured-image"/>
+            </div>
+            <div class="btns">
+                <img src="svg/screenshot.svg" class="icon" id="Screenshot">
+                <img src="svg/home.svg" class="icon" id="goToMain">
+                <img src="svg/camOn.svg" class="icon" id="camOnOff">
+            </div>
+        </div>
+        <div class="guide">
+        </div>
+    </body>
+</html>

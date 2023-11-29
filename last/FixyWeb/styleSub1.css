@@ -1,0 +1,49 @@
+body{
+    margin: 20px;
+    overflow: hidden;
+    display: flex;
+    background: #1d344a;
+    flex-direction: row;
+}
+
+.display{
+    width: 1300px;
+    margin-right: 20px;
+    float: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.cam{
+    height: 800px;
+    background: #000;
+    border-radius: 20px 20px 0 0;
+    border: 2px solid #1d344a;
+}
+
+.btns{
+    margin-top: 10px;
+    height: 100px;
+    background: #76DCC4;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #1d344a;
+}
+
+.icon{
+    width: 50px;
+    height: 50px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.guide{
+    float: right;
+    width: 500px;
+    height: 914px;
+    border-radius: 20px;
+    background: #fff;
+    border: 2px solid #1d344a;
+}

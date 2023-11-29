@@ -5,15 +5,11 @@ import numpy as np
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 def generate_frames():
     cap = cv2.VideoCapture(0)
     mp_drawing = mp.solutions.drawing_utils
     mp_pose = mp.solutions.pose
-    counter = 0
+    #counter = 0
     left_counter = 0
     right_counter = 0 
     left_stage = None  # 왼쪽 팔의 stage 변수 초기화
@@ -166,8 +162,11 @@ def generate_frames():
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
             
             
-
     cap.release()
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/video_feed')
 def video_feed():

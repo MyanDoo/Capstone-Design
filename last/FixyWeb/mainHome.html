@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Fixy-재활운동 보조 프로그램</title>
+        <link rel="stylesheet" href="styleHome.css">
+        <script src="actHome.js"></script>
+        
+        <!--font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@600;800;900&family=Orbit&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        
+        <div class="projectName">
+            <h1>Fixy</h1>
+        </div>
+
+        <div class="slider">
+            <div class="slides">
+                <!--radio buttons-->
+                <input type="radio" name="radio-btn" id="radio1">
+                <input type="radio" name="radio-btn" id="radio2">
+                <input type="radio" name="radio-btn" id="radio3">
+
+                <!--img-->
+                <div class="slide first">
+                    <img src="img/2ndSlide01.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/thin.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="img/3.jpg" alt="">
+                </div>
+
+                <!--auto nav-->
+                <div class="nav-auto">
+                    <div class="auto-btn1"></div>
+                    <div class="auto-btn2"></div>
+                    <div class="auto-btn3"></div>
+                </div>
+            </div>
+
+            <!--manual nav-->
+            <div class="nav-manual">
+                 <label for="radio1" class="manual-btn"></label>
+                 <label for="radio2" class="manual-btn"></label>
+                 <label for="radio3" class="manual-btn"></label>
+            </div>
+        </div>
+
+        <!--Start텍스트 이후 추가-->
+        <div class="startText">
+            <h1>어떤 부분을 도와드릴까요?</h1>
+            <p>모든 운동은 숨을 참지 않으며 천천히 시행해야 하며, 각 운동마다 30~60초간 휴식 시간을 갖습니다.
+                <br>이상 증상이 발견되면 즉시 운동을 멈추고 전문 의료진에게 상담을 받아야 합니다.
+            </p>
+        </div>
+
+        <!--Card Slider-->
+        <div class="container">
+            <span class="card-slider" id="card1"></span>
+            <span class="card-slider" id="card2"></span>
+            <span class="card-slider" id="card3"></span>
+            <span class="card-slider" id="card4"></span>
+            <span class="card-slider" id="card5"></span>
+            <span class="card-slider" id="card6"></span>
+            <span class="card-slider" id="card7"></span>
+
+            <div class="imgContainter">
+                <div class="slide_btn" id="card-1">
+                    <img src="img/card-1.jpg" id="cardimg-1"> 
+                    <a href="#card1" class="button" id="card-btn1"></a>
+                    <button type="button" onclick="window.open('sub1.html')" id="cardStart-btn1">시작하기</button>
+                </div>
+                <div class="slide_btn" id="card-2">
+                    <img src="img/card-2.jpg" id="cardimg-2"> 
+                    <a href="#card2" class="button" id="card-btn2"></a>
+                    <!--<button onclick="location.href='sub1.html'" id="btn2"></button>-->
+                    <button type="button" onclick="window.open('sub1.html')" id="cardStart-btn2">시작하기</button>
+                </div>
+                <div class="slide_btn" id="card-3">
+                    <img src="img/Slide02.png" id="cardimg-3"> 
+                    <a href="#card3" class="button" id="card-btn3"></a>
+                    <button type="button" onclick="window.open('sub1.html')" id="cardStart-btn3">시작하기</button>
+                </div>
+                <div class="slide_btn" id="card-4">
+                    <img src="img/arm02.jpg" id="cardimg-4"> 
+                    <a href="#card4" class="button" id="card-btn4"></a>
+                    <button type="button" onclick="window.open('sub1.html')" id="cardStart-btn4">시작하기</button>
+                </div>
+                <div class="slide_btn" id="card-5">
+                    <img src="img/Slide03.png" id="cardimg-5"> 
+                    <a href="#card5" class="button" id="card-btn5"></a>
+                    <button type="button" onclick="window.open('sub1.html')" id="cardStart-btn5">시작하기</button>
+                </div>
+                <div class="slide_btn" id="card-6">
+                    <img src="img/card-6.jpg" id="cardimg-6"> 
+                    <a href="#card6" class="button" id="card-btn6"></a>
+                    <button type="button" onclick="window.open('sub1.html')" id="cardStart-btn6">시작하기</button>
+                </div>
+                <div class="slide_btn" id="card-7">
+                    <img src="img/card-7.jpg" id="cardimg-7"> 
+                    <a href="#card7" class="button" id="card-btn7"></a>
+                    <button type="button" onclick="window.open('sub1.html')" id="cardStart-btn7">시작하기</button>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>

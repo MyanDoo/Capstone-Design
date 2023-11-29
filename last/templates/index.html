@@ -3,14 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mediapipe Pose Detection</title>
+    <title>Fixy-Arm</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleSub1.css') }}">
+    <script src="{{ url_for('static', filename='actSub1.js') }}"></script>
   </head>
+
   <body>
-    <h1>Mediapipe Pose Detection</h1>
-    <div style="padding:30px;">
+    <div class="display">
+        <div class="cam" style="padding-top: 180px; padding-left: 350px; padding-right: 30px;">
+           
+            <!--캠화면 -->
+            <img id="captured-image" src="{{ url_for('video_feed') }}" alt="Pose Detection" />
+        </div>
+        <div class="btns">
+            <img src="{{ url_for('static', filename='svg/screenshot.svg') }}" class="icon" id="Screenshot">
+            <img src="{{ url_for('static', filename='svg/home.svg') }}" class="icon" id="goToMain">
+            <img src="{{ url_for('static', filename='svg/camOn.svg') }}" class="icon" id="camOnOff">
+        </div>
     </div>
-    <div>
-      <img src="{{ url_for('video_feed') }}" alt="Pose Detection" />
+    <div class="guide">
     </div>
-  </body>
+</body>
 </html>
