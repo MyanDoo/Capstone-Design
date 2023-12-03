@@ -7,6 +7,9 @@ app = Flask(__name__)
 
 def generate_frames():
     cap = cv2.VideoCapture(0)
+    # Set the width and height of the frame
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1290)  # 가로 해상도 1290 설정
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 620)  # 세로 해상도 800 설정
     mp_drawing = mp.solutions.drawing_utils
     mp_pose = mp.solutions.pose
     #counter = 0
@@ -117,25 +120,25 @@ def generate_frames():
 
             # Render curl counter
             # Setup status box
-            cv2.rectangle(image, (0,0), (600,73), (245,117,16), -1)
+            cv2.rectangle(image, (0,0), (1290,70), (245,117,16), -1)
             
             # Rep data
-            cv2.putText(image, 'REPS', (30,12), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 1, cv2.LINE_AA)
+            cv2.putText(image, 'REPS', (30,20), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,0,0), 1, cv2.LINE_AA)
             # Count left
             cv2.putText(image, str(left_counter), 
-                        (5,40), 
+                        (205,40), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
             # Count right
-            cv2.putText(image, str(right_counter), (240, 40), 
+            cv2.putText(image, str(right_counter), (880, 40), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
             
             
             # Stage data
-            cv2.putText(image, 'STAGE', (image.shape[1] - 120, 12), 
-                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
+            cv2.putText(image, 'STAGE', (image.shape[1] - 120, 20), 
+                cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
             cv2.putText(image, left_stage, 
-                (image.shape[1] - 580, 40), 
+                (image.shape[1] - 1010, 40), 
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
             cv2.putText(image, right_stage, 
                 (image.shape[1] - 340, 40), 

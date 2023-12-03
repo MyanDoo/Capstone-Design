@@ -10,8 +10,6 @@
     <body>
         <div class="display">
             <div class="cam">
-                <video id="webcam-feed" width="640" height="480" autoplay></video>
-                <canvas id="canvas" style="display: none;"></canvas>
                 <!--캠화면 -->
                 <img src="{{ url_for('video_feed') }}" alt="Pose Detection" id="captured-image"/>
             </div>
