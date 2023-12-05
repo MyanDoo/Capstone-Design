@@ -1,0 +1,367 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    background: #1d344a;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.projectName{
+    color:#76DCC4;
+    text-align: center;
+    font-size: 34px;
+    font-family: 'MuseoModerno', sans-serif;
+    font-weight: 600;
+}
+
+.slider{
+    width: 1200px;
+    height: 700px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.25);
+}
+
+.slides{
+    width: 500%;
+    height: 700px;
+    display: flex;
+}
+
+.slides input{
+    display: none;
+}
+
+.slide{
+    width: 20%;
+    transition: 2s;
+}
+
+.slide img{
+    width: 1200px;
+    height: 700px;
+}
+
+/*manual slide nav*/
+
+.nav-manual{
+    position: absolute;
+    width: 1200px;
+    margin-top: -40px;
+    display: flex;
+    justify-content: center;
+}
+
+.manual-btn{
+    border: 2px solid #76DCC4;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.manual-btn:not(:last-child){
+    margin-right: 35px;
+}
+
+.manual-btn:hover{
+    background: #76dcc470;
+}
+
+#radio1:checked ~ .first{
+    margin-left: 0;
+}
+
+#radio2:checked ~ .first{
+    margin-left: -20%;
+}
+
+#radio3:checked ~ .first{
+    margin-left: -40%;
+}
+
+/*auto nav*/
+
+.nav-auto{
+    position: absolute;
+    display: flex;
+    width: 1200px;
+    justify-content: center;
+    margin-top: 660px;
+}
+
+.nav-auto div{
+    border: 2px solid #76DCC4;
+    padding: 5px;
+    border-radius: 10px;
+    transition: 1s;
+}
+
+.nav-auto div:not(:last-child){
+    margin-right: 35px;
+}
+
+#radio1:checked ~ .nav-auto .auto-btn1{
+    background: #76DCC4;
+    opacity: 60%;
+}
+
+#radio2:checked ~ .nav-auto .auto-btn2{
+    background: #76DCC4;
+    opacity: 60%;
+}
+
+#radio3:checked ~ .nav-auto .auto-btn3{
+    background: #76DCC4;
+    opacity: 60%;
+}
+
+.projectStart{
+    margin-top: 100px;
+    text-align: center;
+}
+
+.projectStart h1{
+    font-size: 42px;
+}
+
+.projectStart pre{
+    font-size: 24px;
+}
+
+/*StartText*/
+.startText{
+    margin-top: 400px;
+    font-family: 'Orbit', sans-serif;
+    text-align: center;
+    color: #fff;
+}
+
+.startText h1{
+    font-size: 40px;
+    color:#76DCC4;
+}
+
+.startText p{
+    font-size: 16px;
+}
+
+/*Card*/
+
+.container{
+    width: 100%;
+    height: 700px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+}
+
+.imgContainter{
+    width: 100%;
+    height: 600px;
+    position: absolute;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+}
+
+.slide_btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 30px 0 30px;
+}
+
+.slide_btn img{
+    position: relative;
+    height: 360px;
+    width: 270px;
+    filter: saturate(10%);
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: 0.7s;
+    border-radius: 20px;
+}
+
+.button{
+    position: absolute;
+    width: 270px;
+    height: 360px;
+    transition: 0.7s;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+}
+
+.button:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/*
+.slide_btn p{
+    position: absolute;
+    width: 150px;
+    margin: 380px 0px 0px 150px;
+    font-size: 24px;
+    visibility: hidden;
+}
+
+.slide_btn btn2{
+    position: absolute;
+    width: 270px;
+    height: 360px;
+    transition: 0.7s;
+    border: none;
+    border-radius: 20px;
+    visibility: hidden;
+}
+*/
+
+.slide_btn button{
+    position: absolute;
+    width: 340px;
+    height: 60px;
+    margin-top: 400px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    font-size: 28px;
+    background: transparent;
+    color: #fff;
+    visibility: hidden;
+}
+
+
+#card1:target ~ .imgContainter #cardimg-1,
+#card1:target ~ .imgContainter #card-btn1{
+    width: 360px;
+    height: 480px;
+    background-color: transparent;
+    filter: saturate(100%);
+}
+
+#card1:target ~ .imgContainter #cardStart-btn1{
+    visibility: visible;
+    transition-delay: 0.4s;
+}
+
+#card2:target ~ .imgContainter #cardimg-2,
+#card2:target ~ .imgContainter #card-btn2{
+    width: 360px;
+    height: 480px;
+    background-color: transparent;
+    filter: saturate(100%);
+}
+
+#card2:target ~ .imgContainter #cardStart-btn2{
+    visibility: visible;
+    transition-delay: 0.4s;
+}
+
+/*
+#card2:target ~ .imgContainter #btn2{
+    position: absolute;
+    width: 360px;
+    height: 480px;
+    background-color: transparent;
+    border: none;
+    filter: saturate(100%);
+    visibility: visible;
+}
+*/
+
+#card3:target ~ .imgContainter #cardimg-3,
+#card3:target ~ .imgContainter #card-btn3{
+    width: 360px;
+    height: 480px;
+    background-color: transparent;
+    filter: saturate(100%);
+}
+
+#card3:target ~ .imgContainter #cardStart-btn3{
+    visibility: visible;
+    transition-delay: 0.4s;
+}
+
+#card4:target ~ .imgContainter #cardimg-4,
+#card4:target ~ .imgContainter #card-btn4{
+    width: 360px;
+    height: 480px;
+    background-color: transparent;
+    filter: saturate(100%);
+}
+
+#card4:target ~ .imgContainter #cardStart-btn4{
+    visibility: visible;
+    transition-delay: 0.4s;
+}
+
+#card5:target ~ .imgContainter #cardimg-5,
+#card5:target ~ .imgContainter #card-btn5{
+    width: 360px;
+    height: 480px;
+    background-color: transparent;
+    filter: saturate(100%);
+}
+
+#card5:target ~ .imgContainter #cardStart-btn5{
+    visibility: visible;
+    transition-delay: 0.4s;
+}
+
+#card6:target ~ .imgContainter #cardimg-6,
+#card6:target ~ .imgContainter #card-btn6{
+    width: 360px;
+    height: 480px;
+    background-color: transparent;
+    filter: saturate(100%);
+}
+
+#card6:target ~ .imgContainter #cardStart-btn6{
+    visibility: visible;
+    transition-delay: 0.4s;
+}
+
+#card7:target ~ .imgContainter #cardimg-7,
+#card7:target ~ .imgContainter #card-btn7{
+    width: 360px;
+    height: 480px;
+    background-color: transparent;
+    filter: saturate(100%);
+}
+
+#card7:target ~ .imgContainter #cardStart-btn7{
+    visibility: visible;
+    transition-delay: 0.4s;
+}
+
+#card1:target ~ .imgContainter{
+    left: 60%
+}
+
+#card2:target ~ .imgContainter{
+    left: 40%
+}
+
+#card3:target ~ .imgContainter{
+    left: 20%
+}
+
+#card4:target ~ .imgContainter{
+    left: 0%
+}
+
+#card5:target ~ .imgContainter{
+    left: -20%
+}
+
+#card6:target ~ .imgContainter{
+    left: -40%
+}
+
+#card7:target ~ .imgContainter{
+    left: -60%
+}

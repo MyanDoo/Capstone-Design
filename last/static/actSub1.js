@@ -21,3 +21,8 @@ async function startWebcam() {
 }
 
 startWebcam();
+
+document.getElementById("homeBtn").onclick = function() {
+  location.href = 'templates/mainHome.html';
+};
+

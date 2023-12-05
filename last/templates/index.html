@@ -10,15 +10,27 @@
 
   <body>
     <div class="display">
-        <div class="cam" style="padding-top:40px; padding-bottom:140px; padding-left: 10px;">
+        <div class="cam" style="padding-top:40px; padding-bottom:0px; padding-left: 7px;">
            
             <!--캠화면 -->
             <img id="captured-image" src="{{ url_for('video_feed') }}" alt="Pose Detection" />
         </div>
         <div class="btns">
-            <img src="{{ url_for('static', filename='svg/screenshot.svg') }}" class="icon" id="Screenshot">
-            <img src="{{ url_for('static', filename='svg/home.svg') }}" class="icon" id="goToMain">
-            <img src="{{ url_for('static', filename='svg/camOn.svg') }}" class="icon" id="camOnOff">
+          <button type="button" class="iconBtn" id="cameraBtn">
+              <img src="{{ url_for('static', filename='svg/screenshot.svg') }}" class="icon" id="Screenshot">
+          </button>
+          <button type="button" class="iconBtn" id="homeBtn">
+              <img src="{{ url_for('static', filename='svg/home.svg') }}" class="icon" id="goToMain">
+          </button>
+          <button type="button" class="iconBtn" id="OnOffBtn">
+             <img src="{{ url_for('static', filename='svg/camOn.svg') }}" class="icon" id="camOnOff"> 
+          </button>
+
+          <script>
+            document.getElementById("homeBtn").addEventListener("click", function() {
+                location.href = "/mainHome.html";
+            });
+        </script>
         </div>
     </div>
     <div class="guide">
