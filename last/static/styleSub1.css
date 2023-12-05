@@ -55,3 +55,8 @@ body{
     background: #000000;
     border: 2px solid #1d344a;
 }
+
+.guideImg{
+    height: fit-content;
+    border-radius: 20px;
+}
